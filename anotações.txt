@@ -1,0 +1,25 @@
+1 - iniciando o projeto com o comando: django-admin startproject app .
+2 - Comando para startar o projeto: Python manage.py runserver
+3 - Criando um APP no projeto python: manage.py startapp nome_do_app
+
+########## BANCO DE DADOS #############
+4 - comando para migrar tabelas para o banco de dados: python manage.py makemigrations
+5 - comando para executar as migrations: python manage.py migrate
+
+
+######### COMANDOS DJANGO ADMIN ##############
+user: admin
+senha:admin
+
+6 - python manage.py createsuperuser
+
+######### TERMOS ##########
+Server Side Rendering (SSR) - Termo utilizado para projetos FullStack em que renderiza templates e faz todo o backend também tudo junto
+Serializer - 
+
+######## DJANGO RESTFRAMEWOK ###############
+1 - INSTALAR pip instal djangorestframework
+2 - Adicionar 'rest_framework' aos INSTALLED_APPS
+
+3 - Criação da classedAPIViews
+4 - Criar Serializer para serializar os dados e dispô-los em formato json
