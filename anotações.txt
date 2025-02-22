@@ -23,3 +23,68 @@ Serializer -
 
 3 - Criação da classedAPIViews
 4 - Criar Serializer para serializar os dados e dispô-los em formato json
+
+
+JWT - REFRESH TOKEN
+
+O token de acesso dura no mínimo 5 minutos.
+
+O Refresh Token tem duração de 24 horas e pode ser usado na aplicação para 
+renovar o token de acesso.
+
+OBTER O TOKEN:
+POST - http://127.0.0.1:8000/api/v1/authentication/token/
+body:
+{
+    "username": "admin",
+    "password": "admin"
+
+}
+
+Retorno:
+
+{
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM0NDk3OSwiaWF0IjoxNzQwMjU4NTc5LCJqdGkiOiIyNTEyM2NjNTY1ZjI0YWUwOWQwNmM0NmE5ODc0MmU2MiIsInVzZXJfaWQiOjF9.f9WPElIc0LnU4PK0MyxVHulBaQ4ZgDjMsGnnUeGaNfY",
+    "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjU4ODc5LCJpYXQiOjE3NDAyNTg1NzksImp0aSI6IjdiNzY1MDRiM2I1ODRiM2E5NTE1ZTdkNTIzOWJiZmY5IiwidXNlcl9pZCI6MX0.JrdEczH1bwKX8DpGJ0Kv2BL8Ki4iB29Hjvb2qz4XxuQ"
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+REFRESH TOKEN:
+POST: http://127.0.0.1:8000/api/v1/authentication/token/refresh/
+body:
+{
+    "refresh": "refresh token"
+}
+
+retorno:
+{
+    "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjU5MTc2LCJpYXQiOjE3NDAyNTg1NzksImp0aSI6IjE5ZDE5ZDg3MmJiNDQ4MTZiNDY0ZmVmNzdkYjgwOTk2IiwidXNlcl9pZCI6MX0.ufuZLBikjD6sXsX8ihgfhZ-nSMJjcJE-CAPI_2zDyMM"
+}
+
+VERIFY TOKEN:
+POST - http://127.0.0.1:8000/api/v1/authentication/token/verify/
+body:
+{
+    "token": "access Token aqui"
+}
+
+retorno:
+
+200 ok ou 400 se o token já estiver expirado
+
+ALGORITIMO:
+
+1º - USUÁRIO FAZ LOGIN E RECEBE O ACCESS E REFRESH TOKEN
+
+2º - USE UMA FUNÇÃO QUE PEGUE O ACCESS TOKEN E VERIFIQUE SE ELE ESTÁ VÁLIDO
+    SE O ACCESS TOKEN NÃO ESTIVER MAIS VÁLIDO DISPARE O REFRESH TOKEN PARA OBTER 
+    UM NOVO ACCESS TOKEN RENOVADO POR MAIS 5 MINUTOS.
+
+CONFIGURAÇÕES SIMPLE JWT
+
+Configurações de validade do access token e do refresh token.
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+
+}
