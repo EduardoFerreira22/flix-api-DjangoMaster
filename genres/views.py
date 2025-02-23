@@ -2,6 +2,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 from genres.models import Genre
 from genres.serializers import GenreSerializer
+from .permissions import GenrePermissionsClass
 
 #Functions views
 """
@@ -58,7 +59,7 @@ def genre_detail_view(request, pk):
 #ClassApiViews
 #View para buscar todos os gêneros no banco de dados e criar novos Gêneros no banco de dados
 class GenreCreateListView(generics.ListCreateAPIView):
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, GenrePermissionsClass)
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
 
